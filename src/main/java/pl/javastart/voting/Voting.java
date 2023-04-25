@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Voting {
+    private static final String YES = "z";
+    private static final String NO = "p";
+    private static final String ABSTENTION = "w";
 
     public static void main(String[] args) {
         List<String> voters = new ArrayList<>();
@@ -18,7 +21,9 @@ public class Voting {
 
         VotingResult votingResult = voting.executeVoting(voters, new Scanner(System.in));
         votingResult.printResults();
+        votingResult.printVoteForVoter("Jan Kowalski");
         votingResult.printVoteForVoter("Zigniew Siobro");
+        votingResult.printVoteForVoter("Zbyszek Stonoga");
     }
 
     /**
@@ -27,8 +32,20 @@ public class Voting {
      * Metoda powinna pobrać głos dla każdego przekazanego głosującego i zapisać wyniki głosowania do VotingResult
      */
     VotingResult executeVoting(List<String> voters, Scanner scanner) {
-
-        return null; // to możesz (a nawet powinieneś/powinnaś) zmienić :)
+        List<Vote> votes = new ArrayList<>();
+        for (String voter : voters) {
+            System.out.println("Jak głosuje " + voter + "? (z - za, p - przeciw, w - wstrzymanie się)");
+            String vote = scanner.nextLine();
+            if (vote.equalsIgnoreCase(YES)) {
+                votes.add(new Vote(voter, true));
+            } else if (vote.equalsIgnoreCase(NO)) {
+                votes.add(new Vote(voter, false));
+            } else if (vote.equalsIgnoreCase(ABSTENTION)) {
+                votes.add(new Vote(voter, null));
+            } else {
+                System.err.println("Błędny wybór głos nieważny");
+            }
+        }
+        return new VotingResult(votes);
     }
-
 }
