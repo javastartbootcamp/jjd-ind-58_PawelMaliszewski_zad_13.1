@@ -3,8 +3,8 @@ package pl.javastart.voting;
 // klasa pomocnicza, możesz ją dowolnie zmieniać, albo usunąć
 public class Vote {
 
-    private String voter;
-    private Boolean vote; // true - ZA, false - PRZECIW, null - wstrzymanie się
+    private final String voter;
+    private final Boolean vote; // true - ZA, false - PRZECIW, null - wstrzymanie się
 
     public Vote(String voter, Boolean vote) {
         this.voter = voter;
